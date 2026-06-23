@@ -1,0 +1,38 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Popup preview</title>
+<style>
+body{margin:0;background:#222;font-family:"Open Sans",sans-serif;padding:20px;display:flex;flex-direction:column;gap:20px;align-items:center}
+.popup-card{background:#fff;border-radius:10px;width:min(480px,85vw);padding:28px 28px 22px;display:flex;flex-direction:column;align-items:center;gap:14px;position:relative}
+.popup-logo{width:52px;height:52px;border-radius:5px;background:#D12420;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-style:italic;font-size:24px}
+.popup-body{font-size:15px;color:#D12420;text-align:center;line-height:1.7;max-width:380px}
+.popup-sub{font-size:11px;color:rgba(209,36,32,.7);text-align:center;letter-spacing:.04em}
+.popup-close{position:absolute;top:10px;right:12px;background:rgba(209,36,32,.15);border:none;color:#D12420;width:26px;height:26px;border-radius:50%;font-size:16px;display:flex;align-items:center;justify-content:center}
+.popup-bar-wrap{width:100%;height:3px;background:rgba(209,36,32,.2);border-radius:2px;overflow:hidden}
+.popup-bar{height:100%;background:#D12420;border-radius:2px;width:60%}
+.lbl{color:#fff;font-size:12px;letter-spacing:.1em}
+</style></head><body>
+<div class="lbl">MESSAGE 1</div>
+<div class="popup-card">
+  <button class="popup-close">✕</button>
+  <div class="popup-logo">illy</div>
+  <div class="popup-body">Two sides. Two screens. Same great menu.<br>Best browsed one at a time. Avoids the food fights.</div>
+  <div class="popup-sub">Tap ✕ to dismiss</div>
+  <div class="popup-bar-wrap"><div class="popup-bar"></div></div>
+</div>
+<div class="lbl">MESSAGE 2</div>
+<div class="popup-card">
+  <button class="popup-close">✕</button>
+  <div class="popup-logo">illy</div>
+  <div class="popup-body">Two screens share this frame. They show the same great menu.<br>Browse one side at a time for the smoothest experience. Your caffeine fix is so close!</div>
+  <div class="popup-sub">Tap ✕ to dismiss</div>
+  <div class="popup-bar-wrap"><div class="popup-bar"></div></div>
+</div>
+<div class="lbl">MESSAGE 3</div>
+<div class="popup-card">
+  <button class="popup-close">✕</button>
+  <div class="popup-logo">illy</div>
+  <div class="popup-body">This screen is made for the table, right where it belongs.<br>See it, scroll it — best browsed one at a time.</div>
+  <div class="popup-sub">Tap ✕ to dismiss</div>
+  <div class="popup-bar-wrap"><div class="popup-bar"></div></div>
+</div>
+</body></html>
