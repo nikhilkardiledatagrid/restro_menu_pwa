@@ -1,38 +1,41 @@
-name: Deploy standalone.html to GitHub Pages
+name: Deploy menu to GitHub Pages
+
+# Classic branch-based deploy: builds the static menu (standalone.html ->
+# index.html + menu-images + sw.js) and publishes it to the gh-pages branch.
+# Pages must be set to: Settings -> Pages -> Source = "Deploy from a branch",
+# Branch = gh-pages / (root). This avoids the configure-pages/deploy-pages
+# "GitHub Actions" build path, which this repo rejects.
+
 on:
   push:
     branches: [main]
   workflow_dispatch:
-# redeploy trigger
+
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
+
 concurrency:
   group: pages
   cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Build site (copy standalone.html → index.html + assets + sw.js)
+
+      - name: Build static site
         run: |
           mkdir -p _site
           cp public/standalone.html _site/index.html
           cp -r public/menu-images _site/menu-images
           cp public/sw.js _site/sw.js
-      - uses: actions/configure-pages@v5
+          [ -f public/preview-popups.html ] && cp public/preview-popups.html _site/preview-popups.html || true
+          touch _site/.nojekyll
+
+      - name: Publish to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          # Let the workflow create/enable the Pages site itself (build_type=workflow).
-          # Requires repo Settings → Actions → General → Workflow permissions =
-          # "Read and write permissions".
-          enablement: true
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: gh-pages
