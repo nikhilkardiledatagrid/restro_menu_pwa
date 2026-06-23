@@ -26,6 +26,10 @@ jobs:
           cp -r public/menu-images _site/menu-images
           cp public/sw.js _site/sw.js
       - uses: actions/configure-pages@v5
+        with:
+          # Auto-enable Pages (with GitHub Actions as the source) so no manual
+          # Settings → Pages toggle is required.
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
