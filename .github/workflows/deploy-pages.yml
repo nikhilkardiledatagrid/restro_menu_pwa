@@ -1,0 +1,49 @@
+name: Deploy menu to GitHub Pages
+
+# The public menu is the self-contained static file public/standalone.html
+# plus public/menu-images/. GitHub Pages has no server, so the /admin panel
+# and /api/* routes (TanStack Start server) are not deployed here — only the
+# static menu. We publish the public/ folder as-is and use standalone.html as
+# the site's index.html.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Allow this workflow to deploy to Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one concurrent deployment; don't cancel an in-progress one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare static site
+        # Serve the menu at the site root by making standalone.html the index.
+        run: cp public/standalone.html public/index.html
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
